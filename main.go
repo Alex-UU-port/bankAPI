@@ -48,7 +48,10 @@ func handleRegister(w http.ResponseWriter, r *http.Request) {
 		Password string `json:"password"`
 	}
 
-	json.NewDecoder(r.Body).Decode(&req)
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Неверный формат JSON", http.StatusBadRequest)
+		return
+	}
 
 	if err := authService.Register(req.Email, req.Password); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)

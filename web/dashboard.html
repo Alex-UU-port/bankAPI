@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Банковский сервис - Личный кабинет</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard">
+            <div class="header">
+                <h1>🏦 Личный кабинет</h1>
+                <div class="user-info">
+                    <span id="user-name"></span>
+                    <button onclick="logout()" class="btn-logout">Выйти</button>
+                </div>
+            </div>
+            
+            <!-- Вкладки дашборда -->
+            <div class="dashboard-tabs">
+                <button class="dash-btn active" onclick="showDashboardTab('accounts')">💰 Счета</button>
+                <button class="dash-btn" onclick="showDashboardTab('cards')">💳 Карты</button>
+                <button class="dash-btn" onclick="showDashboardTab('transfer')">🔄 Перевод</button>
+                <button class="dash-btn" onclick="showDashboardTab('credit')">🏦 Кредит</button>
+                <button class="dash-btn" onclick="showDashboardTab('analytics')">📊 Аналитика</button>
+            </div>
+            
+            <!-- Счета -->
+            <div id="accounts-tab" class="dash-content active">
+                <div class="section-header">
+                    <h2>Мои счета</h2>
+                    <button onclick="createAccount()" class="btn-small">+ Новый счет</button>
+                </div>
+                <div id="accounts-list" class="cards-grid"></div>
+                
+                <div class="section-header" style="margin-top: 30px;">
+                    <h2>Пополнить счет</h2>
+                </div>
+                <div class="deposit-form">
+                    <select id="deposit-account"></select>
+                    <input type="number" id="deposit-amount" placeholder="Сумма в RUB">
+                    <button onclick="deposit()" class="btn-small">Пополнить</button>
+                </div>
+            </div>
+            
+            <!-- Карты -->
+            <div id="cards-tab" class="dash-content">
+                <div class="section-header">
+                    <h2>Мои карты</h2>
+                    <button onclick="showCreateCardModal()" class="btn-small">+ Выпустить карту</button>
+                </div>
+                <div id="cards-list" class="cards-grid"></div>
+            </div>
+            
+            <!-- Перевод -->
+            <div id="transfer-tab" class="dash-content">
+                <div class="form-card">
+                    <h2>Перевод средств</h2>
+                    <div class="form-group">
+                        <label>Счет списания:</label>
+                        <select id="transfer-from"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Номер счета получателя:</label>
+                        <input type="text" id="transfer-to" placeholder="40817XXXXXXXXXXXXX">
+                    </div>
+                    <div class="form-group">
+                        <label>Сумма (RUB):</label>
+                        <input type="number" id="transfer-amount" placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label>Назначение:</label>
+                        <input type="text" id="transfer-desc" placeholder="Назначение платежа">
+                    </div>
+                    <button onclick="transfer()" class="btn-primary">Перевести</button>
+                </div>
+            </div>
+            
+            <!-- Кредит -->
+            <div id="credit-tab" class="dash-content">
+                <div class="form-card">
+                    <h2>Оформление кредита</h2>
+                    <div class="form-group">
+                        <label>Счет зачисления:</label>
+                        <select id="credit-account"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Сумма кредита (RUB):</label>
+                        <input type="number" id="credit-amount" placeholder="10000 - 1000000">
+                    </div>
+                    <div class="form-group">
+                        <label>Срок (месяцев):</label>
+                        <select id="credit-term">
+                            <option value="6">6 месяцев</option>
+                            <option value="12">12 месяцев</option>
+                            <option value="24">24 месяца</option>
+                            <option value="36">36 месяцев</option>
+                        </select>
+                    </div>
+                    <button onclick="applyCredit()" class="btn-primary">Оформить кредит</button>
+                </div>
+                
+                <div id="credit-info" class="credit-info"></div>
+            </div>
+            
+            <!-- Аналитика -->
+            <div id="analytics-tab" class="dash-content">
+                <div class="stats-grid" id="analytics-stats"></div>
+                <div class="predict-form">
+                    <h3>Прогноз баланса</h3>
+                    <select id="predict-account"></select>
+                    <input type="number" id="predict-days" placeholder="Количество дней (1-365)" value="30">
+                    <button onclick="predictBalance()" class="btn-small">Прогноз</button>
+                </div>
+                <div id="predict-result" class="predict-result"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно для создания карты -->
+    <div id="card-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Выпуск карты</h2>
+            <div class="form-group">
+                <label>Выберите счет:</label>
+                <select id="card-account"></select>
+            </div>
+            <button onclick="createCard()" class="btn-primary">Выпустить</button>
+        </div>
+    </div>
+    
+    <script src="/js/app.js"></script>
+</body>
+</html>

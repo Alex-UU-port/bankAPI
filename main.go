@@ -87,6 +87,7 @@ func main() {
 	// Статические файлы
 	r.PathPrefix("/css/").HandlerFunc(webHandler.ServeStatic)
 	r.PathPrefix("/js/").HandlerFunc(webHandler.ServeStatic)
+	r.HandleFunc("/dashboard.html", webHandler.ServeDashboard).Methods("GET")
 
 	// Публичные маршруты
 	r.HandleFunc("/", webHandler.ServeIndex).Methods("GET")

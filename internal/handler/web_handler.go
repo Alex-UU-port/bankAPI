@@ -13,8 +13,8 @@ type WebHandler struct {
 func NewWebHandler() *WebHandler {
 	// Загрузка HTML шаблонов
 	tmpl := template.Must(template.ParseFiles(
-		"web/index.html",
-		"web/dashboard.html",
+		filepath.Join("web", "index.html"),
+		filepath.Join("web", "dashboard.html"),
 	))
 
 	return &WebHandler{
@@ -27,12 +27,12 @@ func (h *WebHandler) ServeIndex(w http.ResponseWriter, r *http.Request) {
 	h.templates.ExecuteTemplate(w, "index.html", nil)
 }
 
-// Страница дашборда (после входа)
+// Страница дашборда
 func (h *WebHandler) ServeDashboard(w http.ResponseWriter, r *http.Request) {
 	h.templates.ExecuteTemplate(w, "dashboard.html", nil)
 }
 
-// Статические файлы
+// Статические файлы (CSS, JS)
 func (h *WebHandler) ServeStatic(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, filepath.Join("web", r.URL.Path))
 }

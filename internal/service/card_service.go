@@ -5,6 +5,7 @@ import (
 	"bankAPI/internal/models"
 	"bankAPI/internal/repository"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/google/uuid"
@@ -28,6 +29,11 @@ func NewCardService(
 		accountRepo:  accountRepo,
 		emailService: emailService,
 	}
+}
+
+// Очистка строки от нулевых байтов
+func cleanString(s string) string {
+	return strings.ReplaceAll(s, "\x00", "")
 }
 
 // Создание новой карты
@@ -79,15 +85,23 @@ func (s *CardService) CreateCard(accountID, userID string) (*models.Card, string
 	dataForHMAC := cardNumber + expiry
 	hmacSignature := crypto.GenerateHMAC(dataForHMAC)
 
+	// Очистка данных от нулевых байтов
+	//cleanCardNumber := cleanString(cardNumber)
+	cleanEncryptedNumber := cleanString(encryptedNumber)
+	cleanMaskedNumber := cleanString(maskedNumber)
+	cleanExpiry := cleanString(expiry)
+	cleanEncryptedExpiry := cleanString(encryptedExpiry)
+	cleanHMAC := cleanString(hmacSignature)
+
 	card := &models.Card{
-		ID:                  uuid.New().String(),
-		AccountID:           accountID,
-		CardNumberEncrypted: encryptedNumber,
-		CardNumberMasked:    maskedNumber,
-		ExpiryEncrypted:     encryptedExpiry,
-		ExpiryMasked:        expiry,
-		CVVHash:             string(cvvHash),
-		HMACSignature:       hmacSignature,
+		ID:                  cleanString(uuid.New().String()),
+		AccountID:           cleanString(accountID),
+		CardNumberEncrypted: cleanEncryptedNumber,
+		CardNumberMasked:    cleanMaskedNumber,
+		ExpiryEncrypted:     cleanEncryptedExpiry,
+		ExpiryMasked:        cleanExpiry,
+		CVVHash:             cleanString(string(cvvHash)),
+		HMACSignature:       cleanHMAC,
 		IsActive:            true,
 		CreatedAt:           time.Now(),
 	}

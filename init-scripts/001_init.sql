@@ -85,7 +85,7 @@ CREATE INDEX IF NOT EXISTS idx_credits_user_id ON credits(user_id);
 CREATE INDEX IF NOT EXISTS idx_payment_schedules_credit_id ON payment_schedules(credit_id);
 CREATE INDEX IF NOT EXISTS idx_payment_schedules_due_date ON payment_schedules(due_date);
 
--- Комментарии на русском
+-- Комментарии
 COMMENT ON TABLE users IS 'Пользователи системы банка';
 COMMENT ON TABLE accounts IS 'Банковские счета пользователей';
 COMMENT ON TABLE cards IS 'Банковские карты с шифрованием';

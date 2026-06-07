@@ -84,6 +84,7 @@ PORT=8080
 ```bash
 docker compose up -d --build
 ```
+Необходимо создать БД 'bankDB'
 
 ## 3. Установка зависимостей
 ```bash
@@ -242,10 +243,10 @@ curl -X GET http://localhost:8080/api/analytics \
 curl -X GET "http://localhost:8080/api/accounts/$ACCOUNT_ID/predict?days=30" \
   -H "Authorization: Bearer $TOKEN"
 
-  # Попытка доступа без токена (должен вернуть 401)
+# 10. Попытка доступа без токена (должен вернуть 401)
 curl -X GET http://localhost:8080/api/accounts
 
-# Попытка доступа к чужому счету (должен вернуть 404)
+# 11. Попытка доступа к чужому счету (должен вернуть 404)
 curl -X GET http://localhost:8080/api/accounts/чужой_id \
   -H "Authorization: Bearer $TOKEN"
 ```

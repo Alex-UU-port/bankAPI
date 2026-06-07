@@ -72,6 +72,7 @@ func (s *AuthService) Register(req models.RegisterRequest) (*models.User, error)
 	}
 
 	// Отправка приветственного email
+
 	s.emailSvc.SendWelcomeEmail(req.Email, req.Username)
 
 	logrus.WithFields(logrus.Fields{

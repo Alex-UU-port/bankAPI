@@ -7,7 +7,9 @@ import (
 
 // Генерация номера карты по алгоритму Луна
 func GenerateCardNumber() string {
+
 	// Префикс для Visa (4) + 15 случайных цифр
+
 	prefix := "4"
 	numbers := prefix + generateRandomNumbers(15)
 

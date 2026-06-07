@@ -162,7 +162,6 @@ bankAPI/
 | Метод | Эндпоинт | Описание | Пример тела запроса |
 |-----------|------------|------------|------------|
 | GET | / | Главная страница | - |
-| GET | /dashboard.html | Личный кабинет | - | 
 | POST | /register | Регистрация | {"username":"john","email":"john@test.com","password":"123456"} |
 | POST | /login | Вход | {"email":"john@test.com","password":"123456"} |
 

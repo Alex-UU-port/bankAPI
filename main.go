@@ -11,6 +11,7 @@ import (
 	"bankAPI/internal/middleware"
 	"bankAPI/internal/repository"
 	"bankAPI/internal/service"
+	"bankAPI/scheduler"
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
@@ -115,8 +116,9 @@ func main() {
 	api.HandleFunc("/analytics", analyticsHandler.GetAnalytics).Methods("GET")
 	api.HandleFunc("/accounts/{id}/predict", analyticsHandler.PredictBalance).Methods("GET")
 
-	// Запуск шедулера для обработки просроченных платежей
-	go startScheduler(creditService)
+	// Запуск шедулера для обработки просроченных платежей (каждые 12 часов)
+	paymentScheduler := scheduler.NewPaymentScheduler(creditService)
+	paymentScheduler.Start(12) // 12 часов
 
 	// Запуск сервера
 	port := os.Getenv("PORT")

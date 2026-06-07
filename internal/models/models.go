@@ -37,7 +37,7 @@ type Card struct {
 	CreatedAt           time.Time `json:"created_at"`
 }
 
-// Транзакция
+// Транзакции
 type Transaction struct {
 	ID            string    `json:"id"`
 	FromAccountID *string   `json:"from_account_id,omitempty"`

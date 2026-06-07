@@ -19,7 +19,7 @@ func NewAuthHandler(authService *service.AuthService) *AuthHandler {
 	}
 }
 
-// Регистрация пользователя
+// Рег-ция пользователя
 func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Метод не разрешен", http.StatusMethodNotAllowed)
